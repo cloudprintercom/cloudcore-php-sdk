@@ -1,0 +1,34 @@
+{
+    "name": "cloudprinter/cloudcore",
+    "description": "The library that help developers easily integrate with CloudPrinter CloudCore API.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vasyl Kushniruk",
+            "email": "kushniruk92@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "ext-json": "*",
+        "ext-fileinfo": "*",
+        "guzzlehttp/guzzle": "~5.0",
+        "particle/validator": "^2.0@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "7.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "CloudPrinter\\CloudCore\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CloudPrinter\\CloudCore\\Tests\\": "tests/"
+        }
+    }
+}
