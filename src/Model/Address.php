@@ -339,9 +339,10 @@ class Address implements ModelInterface, CountryInterface
             'phone' => $this->getPhone()
         ];
 
-        $this->validate($data);
+        $dataFiltered = array_filter($data);
+        $this->validate($dataFiltered);
 
-        return $data;
+        return $dataFiltered;
     }
 
     /**

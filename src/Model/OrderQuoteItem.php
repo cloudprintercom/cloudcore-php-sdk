@@ -128,9 +128,10 @@ class OrderQuoteItem implements ModelInterface
             $data['options'][] = $option->toArray();
         }
 
-        $this->validate($data);
+        $dataFiltered = array_filter($data);
+        $this->validate($dataFiltered);
 
-        return $data;
+        return $dataFiltered;
     }
 
     /**
