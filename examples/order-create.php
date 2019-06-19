@@ -18,20 +18,25 @@ $address->setEmail('test@mail.com')
     ->setZip('1071 JA')
     ->setType('delivery');
 
-$file = new File();
-$file->setUrl('https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf')
+$fileCover = new File();
+$fileCover->setUrl('https://s3-eu-west-1.amazonaws.com/demo.cloudprinter.com/b52f510a5e2419f67c4925153ec0c080_v2/CP_Sample_doc_A4_Book_Cover_Textbook_80_gsm_Casewrap_v2.1.pdf')
     ->setType('cover');
+
+$fileBook = new File();
+$fileBook->setUrl('https://s3-eu-west-1.amazonaws.com/demo.cloudprinter.com/b52f510a5e2419f67c4925153ec0c080_v2/CP_Sample_doc_A4_Book_Interior_Textbook_v2.1.pdf')
+    ->setType('book');
 
 $item = new OrderItem();
 $item->setReference('item-1')
     ->setCount(1)
-    ->setProduct('textbook_cw_a6_p_bw')
+    ->setProduct('textbook_cw_a4_p_bw')
     ->setShippingLevel('cp_saver')
-    ->addFile($file)
+    ->addFile($fileCover)
+    ->addFile($fileBook)
     ->addOption(new Option('cover_finish_gloss', 1))
     ->addOption(new Option('pageblock_80off', 1))
     ->addOption(new Option('cover_130mcg', 1))
-    ->addOption(new Option('total_pages', 200));
+    ->addOption(new Option('total_pages', 100));
 
 $order = new Order();
 $order
