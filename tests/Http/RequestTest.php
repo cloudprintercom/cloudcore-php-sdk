@@ -16,24 +16,27 @@ class RequestTest extends TestCase
 {
     public function testMakePostSuccess()
     {
-        $request = new HttpClient();
-        $response = $request->makeRequest('https://jsonplaceholder.typicode.com/posts');
+        $baseUrl = 'https://jsonplaceholder.typicode.com/';
+        $request = new HttpClient($baseUrl);
+        $response = $request->makeRequest('posts');
 
         $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testMakeDeleteSuccess()
     {
-        $request = new HttpClient();
-        $response = $request->makeRequest('https://jsonplaceholder.typicode.com/posts/1', [], 'delete');
+        $baseUrl = 'https://jsonplaceholder.typicode.com/';
+        $request = new HttpClient($baseUrl);
+        $response = $request->makeRequest('posts/1', [], 'delete');
 
         $this->assertInstanceOf(Response::class, $response);
     }
 
     public function testMakeRequestWithWrongMethodSuccess()
     {
-        $request = new HttpClient();
-        $response = $request->makeRequest('https://jsonplaceholder.typicode.com/posts', ['json' => []], 'test');
+        $baseUrl = 'https://jsonplaceholder.typicode.com/';
+        $request = new HttpClient($baseUrl);
+        $response = $request->makeRequest('posts', ['json' => []], 'test');
 
         $this->assertInstanceOf(Response::class, $response);
     }

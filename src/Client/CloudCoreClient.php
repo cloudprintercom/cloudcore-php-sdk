@@ -63,9 +63,10 @@ class CloudCoreClient implements ClientInterface
      */
     public function makeRequest(string $uri, array $data = null, $method = 'post')
     {
-        $data['apikey'] = $this->getApiKey();
-        $config = ['base_url' => $this->getBaseUrl()];
-        $httpClient = new HttpClient($config);
+        $requestData['apikey'] = $this->getApiKey();
+        $baseUrl = $this->getBaseUrl();
+
+        $httpClient = new HttpClient($baseUrl);
         $response = $httpClient->makeRequest($uri, $data, $method);
 
         return $response;

@@ -30,7 +30,7 @@ class BaseAction
     public function __construct(CloudCoreClient $client)
     {
         $this->client = $client;
-        $config = ['base_url' => $client->getBaseUrl()];
-        $this->httpClient = new HttpClient($config);
+        $baseUrl = $client->getBaseUrl();
+        $this->httpClient = new HttpClient($baseUrl);
     }
 }
