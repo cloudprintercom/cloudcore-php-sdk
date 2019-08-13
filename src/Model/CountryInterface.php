@@ -21,7 +21,7 @@ interface CountryInterface
     const COUNTRIES_WITHOUT_ZIP = [
         'AE', 'AG', 'AO', 'AW', 'BF', 'BI', 'BJ', 'BM', 'BO', 'BQ', 'BS', 'BW', 'BZ', 'CD', 'CF', 'CG', 'CI', 'CK',
         'CM', 'CW', 'DJ', 'DM', 'ER', 'FJ', 'GA', 'GD', 'GH', 'GM', 'GQ', 'GY', 'HK', 'HM', 'IE', 'KI', 'KM', 'KN',
-        'KP', 'LY', 'ML', 'MO', 'MR', 'MW', 'NA', 'NL', 'NR', 'NU', 'PE', 'QA', 'RW', 'SB', 'SC', 'SL', 'SR', 'ST',
-        'SX', 'SY', 'TD', 'TF', 'TG', 'TK', 'TL', 'TO', 'TT', 'TV', 'UG', 'VU'
+        'KP', 'LY', 'ML', 'MO', 'MR', 'MW', 'NA', 'NR', 'NU', 'PE', 'QA', 'RW', 'SB', 'SC', 'SL', 'SR', 'ST', 'SX',
+        'SY', 'TD', 'TF', 'TG', 'TK', 'TL', 'TO', 'TT', 'TV', 'UG', 'VU'
     ];
 }
