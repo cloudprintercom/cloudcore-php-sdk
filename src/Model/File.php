@@ -131,8 +131,7 @@ class File implements ModelInterface
         $validator->required('type');
         $validator->required('md5sum');
         $validator->required('url')->callback(function ($value) {
-            $file_info = new \finfo(FILEINFO_MIME_TYPE);
-            $mime_type = $file_info->buffer(file_get_contents($value));
+            $mime_type = $this->getFileMimeType($value);
 
             if ($mime_type != 'application/pdf') {
                 throw new InvalidValueException(
@@ -151,5 +150,30 @@ class File implements ModelInterface
         }
 
         return true;
+    }
+
+    /**
+     * Get mime type of the file.
+     * @param $destinationPath
+     * @return string
+     */
+    private function getFileMimeType($destinationPath)
+    {
+        $host = parse_url($destinationPath, PHP_URL_HOST);
+
+        if (null == $host) {
+            $content = file_get_contents($destinationPath, false, null, 0, 1024);
+        } else {
+            $curl = curl_init($destinationPath);
+            curl_setopt($curl, CURLOPT_RANGE, "0-1024");
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            $content = curl_exec($curl);
+            curl_close($curl);
+        }
+
+        $fileInfo = new \finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $fileInfo->buffer($content);
+
+        return $mimeType;
     }
 }
