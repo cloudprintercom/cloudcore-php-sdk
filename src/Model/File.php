@@ -19,8 +19,9 @@ class File implements ModelInterface
      * Use for validation.
      */
     const FILE_MIME_TYPES = [
-      'application/pdf',
-      'application/zip'
+        'application/pdf',
+        'application/zip',
+        'application/x-empty'
     ];
 
     /**
