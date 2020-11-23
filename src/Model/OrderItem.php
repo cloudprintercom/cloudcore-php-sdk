@@ -4,6 +4,7 @@ namespace CloudPrinter\CloudCore\Model;
 
 use CloudPrinter\CloudCore\Exception\ValidationException;
 use Particle\Validator\Validator;
+use Particle\Validator\Rule\Required;
 
 /**
  * Class OrderItem
@@ -27,6 +28,11 @@ class OrderItem implements ModelInterface
      * @var string The preferred shipping level
      */
     private $shippingLevel;
+
+    /**
+     * @var string The shipping option
+     */
+    private $shippingOption;
 
     /**
      * @var string Title of the product
@@ -141,6 +147,25 @@ class OrderItem implements ModelInterface
     public function setShippingLevel(string $shippingLevel)
     {
         $this->shippingLevel = $shippingLevel;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShippingOption()
+    {
+        return $this->shippingOption;
+    }
+
+    /**
+     * @param string $shippingOption
+     * @return $this
+     */
+    public function setShippingOption(string $shippingOption)
+    {
+        $this->shippingOption = $shippingOption;
 
         return $this;
     }
@@ -383,7 +408,6 @@ class OrderItem implements ModelInterface
         $data = [
             'reference' => $this->getReference(),
             'product' => $this->getProduct(),
-            'shipping_level' => $this->getShippingLevel(),
             'title' => $this->getTitle(),
             'count' => $this->getCount(),
             'files' => [],
@@ -395,8 +419,17 @@ class OrderItem implements ModelInterface
             'reorder_desc' => $this->getReorderDescription(),
             'reorder_order_reference' => $this->getReorderOrderReference(),
             'reorder_item_reference' => $this->getReorderItemReference(),
-            'quote' => $this->getQuote()
         ];
+
+        $shippingData = array_filter([
+            'quote' => $this->getQuote(),
+            'shipping_level' => $this->getShippingLevel(),
+            'shipping_option' => $this->getShippingOption(),
+        ]);
+
+        if (!empty($shippingData)) {
+            $data[array_keys($shippingData)[0]] = reset($shippingData);
+        }
 
         /** @var File $file */
         foreach ($this->getFiles() as $file) {
@@ -427,8 +460,13 @@ class OrderItem implements ModelInterface
         $validator->required('count')->numeric();
         $validator->required('files')->isArray();
 
-        if (!$this->getQuote()) {
-            $validator->required('shipping_level');
+        if (!$this->isReorderItem() && $this->shippingIsNotConfigured()) {
+            $validator->required('shipping');
+            $validator->overwriteMessages([
+                'shipping' => [
+                    Required::NON_EXISTENT_KEY => 'The quote or shipping_level need to be set.'
+                ]
+            ]);
         }
 
         $result = $validator->validate($data);
@@ -438,5 +476,20 @@ class OrderItem implements ModelInterface
         }
 
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isReorderItem() {
+        return !empty($this->getReorderOrderReference());
+    }
+
+    /**
+     * @return bool
+     */
+    private function shippingIsNotConfigured()
+    {
+        return !$this->getQuote() && !$this->getShippingLevel() && !$this->getShippingOption();
     }
 }

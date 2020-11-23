@@ -24,7 +24,7 @@ class OrderItemTest extends TestCase
         $item = new OrderItem();
         $item->setReference('123')
             ->setProduct('textbook_cw_a6_p_bw')
-            ->setShippingLevel('cp_saver')
+            ->setShippingOption('cp_shipping_option')
             ->setTitle('test')
             ->setCount(2)
             ->addFile($file)
@@ -43,7 +43,6 @@ class OrderItemTest extends TestCase
         $expectedSubset = [
             'reference' => '123',
             'product' => 'textbook_cw_a6_p_bw',
-            'shipping_level' => 'cp_saver',
             'title' => 'test',
             'count' => 2,
             'price' => 100,
