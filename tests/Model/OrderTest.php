@@ -37,7 +37,8 @@ class OrderTest extends TestCase
             ->setHc('test')
             ->addItem($item)
             ->addAddress($address)
-            ->addFile($file);
+            ->addFile($file)
+            ->addMeta('metaKey', 'metaValue');
 
         $orderAsArray = $order->toArray();
 
@@ -48,7 +49,10 @@ class OrderTest extends TestCase
             'currency' => 'USD',
             'hc' => 'test',
             'items' => [],
-            'addresses' => []
+            'addresses' => [],
+            'meta' => [
+                'metaKey' => 'metaValue'
+            ]
         ];
         $this->assertArraySubset($expectedSubset, $orderAsArray);
     }
