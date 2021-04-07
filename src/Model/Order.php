@@ -49,6 +49,11 @@ class Order implements ModelInterface
     private $items = [];
 
     /**
+     * @var array Meta data array for custom production parameters
+     */
+    private $meta = [];
+
+    /**
      * @var array Array of zero or more file objects
      */
     private $files = [];
@@ -83,6 +88,14 @@ class Order implements ModelInterface
     public function getItems()
     {
         return $this->items;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMeta()
+    {
+        return $this->meta;
     }
 
     /**
@@ -125,6 +138,18 @@ class Order implements ModelInterface
     public function addItem(OrderItem $item)
     {
         $this->items[] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @param string $metaKey
+     * @param mixed $metaValue
+     * @return $this
+     */
+    public function addMeta(string $metaKey, $metaValue)
+    {
+        $this->meta[$metaKey] = $metaValue;
 
         return $this;
     }
@@ -240,6 +265,11 @@ class Order implements ModelInterface
         /** @var OrderItem $item */
         foreach ($this->getItems() as $item) {
             $data['items'][] = $item->toArray();
+        }
+
+        $meta = $this->getMeta();
+        if (!empty($meta)) {
+            $data['meta'] = $meta;
         }
 
         $dataFiltered = array_filter($data);
