@@ -21,6 +21,10 @@
     "require-dev": {
         "phpunit/phpunit": "7.0.0"
     },
+    "scripts": {
+        "test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/",
+        "testdox": "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests/"
+    },
     "autoload": {
         "psr-4": {
             "CloudPrinter\\CloudCore\\": "src"
