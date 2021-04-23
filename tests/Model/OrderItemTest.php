@@ -26,6 +26,7 @@ class OrderItemTest extends TestCase
             ->setProduct('textbook_cw_a6_p_bw')
             ->setShippingOption('cp_shipping_option')
             ->setTitle('test')
+            ->setType('stock')
             ->setCount(2)
             ->addFile($file)
             ->addOption($option)
@@ -43,6 +44,7 @@ class OrderItemTest extends TestCase
         $expectedSubset = [
             'reference' => '123',
             'product' => 'textbook_cw_a6_p_bw',
+            'type' => 'stock',
             'title' => 'test',
             'count' => 2,
             'price' => 100,
