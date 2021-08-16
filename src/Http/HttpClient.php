@@ -54,7 +54,7 @@ class HttpClient
 
         $ch = curl_init($endpointUrl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $httpMethod);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, strtoupper($httpMethod));
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getHttpHeaders());
         if ($requestData) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($requestData));
