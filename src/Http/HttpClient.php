@@ -47,6 +47,7 @@ class HttpClient
      * @param array $requestData
      * @param string $httpMethod
      * @return Response
+     * @throws \Exception
      */
     public function makeRequest(string $uri, array $requestData = null, $httpMethod = 'post'): Response
     {
@@ -61,6 +62,11 @@ class HttpClient
         }
 
         $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            throw new \Exception('Request Error:' . curl_error($ch));
+        }
+
         $info = curl_getinfo($ch);
         curl_close($ch);
 
